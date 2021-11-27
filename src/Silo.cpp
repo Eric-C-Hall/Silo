@@ -75,6 +75,17 @@ bool Silo::canMove(int whichStack) const
   return stacks[whichStack].canMove(isPlayerOneTurn);
 }
 
+std::vector<int> Silo::possibleMoves() const
+{
+  std::vector<int> returnValue;
+  for (int i = 0; i < NUM_STACKS_TOTAL; i++)
+  {
+    if (canMove(i))
+      returnValue.push_back(i);
+  }
+  return returnValue;
+}
+
 int Silo::whoWon() const
 {
   for (const SiloStack &stack : stacks)

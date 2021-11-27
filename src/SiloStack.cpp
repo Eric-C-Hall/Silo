@@ -88,6 +88,22 @@ bool SiloStack::nContiguousCounters(bool player, int n) const
   return true;
 }
 
+int SiloStack::countCounters(bool player) const
+{
+  int returnValue = 0;
+  for (const bool counter : counters)
+  {
+    if (counter == player)
+      returnValue++;
+  }
+  return returnValue;
+}
+
+
+// ------------
+// Unit Tests
+// ------------
+
 void expectNContiguousCounters(const SiloStack &stack, bool player, int n)
 {
   for (int i = 1; i < 100; i++)
@@ -105,12 +121,6 @@ void expectNContiguousCounters(const SiloStack &stack, bool player, int n)
     }
   }
 }
-
-
-
-// ------------
-// Unit Tests
-// ------------
 
 void SiloStack::unitTests()
 {

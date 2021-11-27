@@ -18,12 +18,14 @@ class Silo
   bool makeMove(int whichStack);
   bool canMove() const;
   bool canMove(int whichStack) const;
+  std::vector<int> possibleMoves() const;
 
   // 1 -> player 1 won
   // -1 -> player 0 won
   // 0 -> ongoing
   int whoWon() const;
   bool getWhoseTurn() const {return isPlayerOneTurn;}
+  const std::vector<SiloStack> &getStacks() const {return stacks;}
 };
 
 

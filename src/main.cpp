@@ -7,12 +7,16 @@
 #include "Player.hpp"
 #include "HumanPlayer.hpp"
 #include "RandomPlayer.hpp"
+#include "MoveDiffHeuristic.hpp"
+#include "MinimaxPlayer.hpp"
 
 void play(Silo &silo, Player &p1, Player &p2)
 {
   while (true)
   {
     silo.print();
+    //MoveDiffHeuristic moveDiffHeuristic;
+    //std::cout << "Curr move diff heuristic: "  <<  moveDiffHeuristic.getValue(silo) << std::endl;
 
     bool whoseTurn = silo.getWhoseTurn();
 
@@ -45,5 +49,8 @@ int main(int argc, char **argv)
   HumanPlayer humanPlayer;
   RandomPlayer randomPlayer;
 
-  play(silo, humanPlayer, randomPlayer);
+  MoveDiffHeuristic moveDiffHeuristic;
+  MinimaxPlayer minimaxPlayer(10, moveDiffHeuristic);
+
+  play(silo, humanPlayer, minimaxPlayer);
 }

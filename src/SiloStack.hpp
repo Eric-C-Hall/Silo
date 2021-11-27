@@ -16,6 +16,8 @@ class SiloStack
   bool canMove(bool player) const;
 
   bool nContiguousCounters(bool player, int n) const;
+  const std::vector<bool> &getCounters() const {return counters;}
+  int countCounters(bool player) const;
 
   static void unitTests();
 };
