@@ -1,7 +1,7 @@
 #ifndef SILO__PLAYER_HPP
 #define SILO__PLAYER_HPP
 
-#include "Silo.hpp"
+#include "../../Game/Silo.hpp"
 
 class Player
 {

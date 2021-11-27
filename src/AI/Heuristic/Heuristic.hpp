@@ -1,7 +1,7 @@
 #ifndef SILO__HEURISTIC_HPP
 #define SILO__HEURISTIC_HPP
 
-#include "Silo.hpp"
+#include "../../Game/Silo.hpp"
 
 class Heuristic
 {

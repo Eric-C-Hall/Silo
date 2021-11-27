@@ -1,6 +1,6 @@
 #include "MoveDiffHeuristic.hpp"
 
-#include "Constants.hpp"
+#include "../../Game/Constants.hpp"
 
 int MoveDiffHeuristic::getValue(const Silo &silo) const
 {

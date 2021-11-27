@@ -1,14 +1,14 @@
 #include <iostream>
 #include <cassert>
 
-#include "Silo.hpp"
-#include "Constants.hpp"
+#include "Game/Silo.hpp"
+#include "Game/Constants.hpp"
 
-#include "Player.hpp"
-#include "HumanPlayer.hpp"
-#include "RandomPlayer.hpp"
-#include "MoveDiffHeuristic.hpp"
-#include "MinimaxPlayer.hpp"
+#include "AI/Player/Player.hpp"
+#include "AI/Player/HumanPlayer.hpp"
+#include "AI/Player/RandomPlayer.hpp"
+#include "AI/Heuristic/MoveDiffHeuristic.hpp"
+#include "AI/Player/MinimaxPlayer.hpp"
 
 void play(Silo &silo, Player &p1, Player &p2)
 {

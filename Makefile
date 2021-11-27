@@ -2,8 +2,9 @@
 
 SRC_DIR = src
 OBJ_DIR = obj
-SRC_DIRECTORIES = 
-CPP_FILES = $(wildcard $(SRC_DIR)/*.cpp) $(foreach dir,$(SRC_DIRECTORIES),$(wildcard $(SRC_DIR)/$(dir)/*.cpp))
+SRC_DIRECTORIES = $(shell find $(SRC_DIR) -type d)
+CPP_FILES = $(foreach dir,$(SRC_DIRECTORIES),$(wildcard $(dir)/*.cpp))
+OBJ_DIRECTORIES = $(patsubst $(SRC_DIR)/%, $(OBJ_DIR)/%, $(SRC_DIRECTORIES))
 OBJ = $(patsubst $(SRC_DIR)/%.cpp,$(OBJ_DIR)/%.o,$(CPP_FILES))
 
 EXE_NAME = silo
@@ -27,13 +28,12 @@ run:
 
 all : build run
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(SRC_DIR)/%.h
-	g++ -Wall -c $< -std=c++11 $(OPTIMIZATION_LEVEL) $(ADDITIONAL_ARGUMENTS) $(CONCURRENCY_ARGUMENTS) $(ASSERTION_ARGUMENTS) -o $@
-
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp $(SRC_DIR)/%.hpp
+	mkdir -p $(dir $@)
 	g++ -Wall -c $< -std=c++11 $(OPTIMIZATION_LEVEL) $(ADDITIONAL_ARGUMENTS) $(CONCURRENCY_ARGUMENTS) $(ASSERTION_ARGUMENTS) -o $@
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	mkdir -p $(dir $@)
 	g++ -Wall -c $< -std=c++11 $(OPTIMIZATION_LEVEL) $(ADDITIONAL_ARGUMENTS) $(CONCURRENCY_ARGUMENTS) $(ASSERTION_ARGUMENTS) -o $@
 
 clean:

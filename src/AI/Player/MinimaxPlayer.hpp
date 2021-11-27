@@ -3,7 +3,7 @@
 
 #include "Player.hpp"
 
-#include "Heuristic.hpp"
+#include "../Heuristic/Heuristic.hpp"
 
 struct MoveValuePair
 {
