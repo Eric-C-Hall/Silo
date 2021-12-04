@@ -16,6 +16,19 @@ MoveValuePair MinimaxPlayer::chooseMove(const Silo &silo, int remainingDepth)
     Silo modifiableSilo(silo);
     modifiableSilo.makeMove(move);
 
+    //int whoWon = silo.whoWon();
+    //if (whoWon != 0)
+    //{
+    //  bestMoveValue
+    //  if (whoWon == 1)
+    //  {
+    //    
+    //  }
+    //  else
+    //  {
+    //  }
+    //}
+
     bool whoseTurnAfterMove = modifiableSilo.getWhoseTurn();
 
     int value;

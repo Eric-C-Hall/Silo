@@ -90,11 +90,11 @@ int Silo::whoWon() const
 {
   for (const SiloStack &stack : stacks)
   {
-    if (stack.nContiguousCounters(true, NUM_COUNTERS_PER_PLAYER))
+    if (stack.countContiguousCounters(true) == NUM_COUNTERS_PER_PLAYER)
     {
       return 1;
     }
-    else if (stack.nContiguousCounters(false, NUM_COUNTERS_PER_PLAYER))
+    else if (stack.countContiguousCounters(false) == NUM_COUNTERS_PER_PLAYER)
     {
       return -1;
     }

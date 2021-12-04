@@ -58,34 +58,23 @@ bool SiloStack::canMove(bool player) const
   return false;
 }
 
-// Does not work for n == 0
-// Assumes that n is equal to the total number of counters, so we don't have any spare counters that can be in non-contiguous spots
-bool SiloStack::nContiguousCounters(bool player, int n) const
+int SiloStack::countContiguousCounters(bool player) const
 {
-  if ((int)counters.size() < n)
-    return false;
-
-  int firstPlayerCounterIndex;
-  bool hasPlayerCounterEarlyEnough = false;
-  for(firstPlayerCounterIndex = 0; firstPlayerCounterIndex <= (int)counters.size() - n; firstPlayerCounterIndex++)
+  int bestNum = 0;
+  int currNum = 0;
+  for (bool counter : counters)
   {
-    if (counters[firstPlayerCounterIndex] == player)
+    if (counter == player)
+      currNum++;
+    else
     {
-      hasPlayerCounterEarlyEnough = true;
-      break;
+      bestNum = std::max(bestNum, currNum);
+      currNum = 0;
     }
   }
 
-  if (!hasPlayerCounterEarlyEnough)
-    return false;
-
-  for (int currPlayerCounterIndex = firstPlayerCounterIndex + 1; currPlayerCounterIndex < firstPlayerCounterIndex + n; currPlayerCounterIndex++)
-  {
-    if (counters[currPlayerCounterIndex] != player)
-      return false;
-  }
-
-  return true;
+  bestNum = std::max(bestNum, currNum);
+  return bestNum;
 }
 
 int SiloStack::countCounters(bool player) const
@@ -106,19 +95,15 @@ int SiloStack::countCounters(bool player) const
 
 void expectNContiguousCounters(const SiloStack &stack, bool player, int n)
 {
-  for (int i = 1; i < 100; i++)
+  int nContiguous = stack.countContiguousCounters(player);
+  if (nContiguous != n)
   {
-    bool existIContiguous = stack.nContiguousCounters(player, i);
-    bool shouldExistIContiguous = i <= n;
-    if (existIContiguous != shouldExistIContiguous)
-    {
-      std::cout << "Wrong number of contiguous counters" << std::endl;
-      stack.print();
-      std::cout << std::endl;
-      std::cout << "Expected " << n << " counters for player " << getCounterChar(player) << std::endl;
-      std::cout << "i = " << i << ", existIContiguous = " << existIContiguous << ", shouldExistIContiguous = " << shouldExistIContiguous << std::endl;
-      exit(EXIT_FAILURE);
-    }
+    std::cout << "Wrong number of contiguous counters" << std::endl;
+    stack.print();
+    std::cout << std::endl;
+    std::cout << "Expected " << n << " counters for player " << getCounterChar(player) << std::endl;
+    std::cout << "There were " << nContiguous << " contiguous counters" << std::endl;
+    exit(EXIT_FAILURE);
   }
 }
 
@@ -171,7 +156,7 @@ void SiloStack::unitTests()
 
   expectNContiguousCounters(stack, true, 4);
   expectNContiguousCounters(stack, false, 0);
-  expectNContiguousCounters(otherStack, true, 2);
+  expectNContiguousCounters(otherStack, true, 4);
   expectNContiguousCounters(otherStack, false, 9);
 
   otherStack.makeMove(false, stack);

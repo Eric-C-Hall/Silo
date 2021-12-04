@@ -8,6 +8,7 @@
 #include "AI/Player/HumanPlayer.hpp"
 #include "AI/Player/RandomPlayer.hpp"
 #include "AI/Heuristic/MoveDiffHeuristic.hpp"
+#include "AI/Heuristic/NumConsecutiveHeuristic.hpp"
 #include "AI/Player/MinimaxPlayer.hpp"
 
 void play(Silo &silo, Player &p1, Player &p2)
@@ -17,6 +18,8 @@ void play(Silo &silo, Player &p1, Player &p2)
     silo.print();
     //MoveDiffHeuristic moveDiffHeuristic;
     //std::cout << "Curr move diff heuristic: "  <<  moveDiffHeuristic.getValue(silo) << std::endl;
+    NumConsecutiveHeuristic numConsecutiveHeuristic;
+    std::cout << "Curr num consecutive heuristic: "  <<  numConsecutiveHeuristic.getValue(silo) << std::endl;
 
     bool whoseTurn = silo.getWhoseTurn();
 
@@ -50,7 +53,8 @@ int main(int argc, char **argv)
   RandomPlayer randomPlayer;
 
   MoveDiffHeuristic moveDiffHeuristic;
-  MinimaxPlayer minimaxPlayer(10, moveDiffHeuristic);
+  NumConsecutiveHeuristic numConsecutiveHeuristic;
+  MinimaxPlayer minimaxPlayer(10, numConsecutiveHeuristic);
 
   play(silo, humanPlayer, minimaxPlayer);
 }
